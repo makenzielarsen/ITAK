@@ -6,12 +6,15 @@
 
 void ConfigurationTester::testGetStringValue() {
     Configuration configuration;
+    configuration.getStringValue("Timeframe");
 }
 
 void ConfigurationTester::testGetIntValue() {
-
+    Configuration configuration;
+    configuration.getIntValue("Likely Attack Message Count");
 }
 
 void ConfigurationTester::testGetDoubleValue() {
-
+    Configuration configuration;
+    configuration.getDoubleValue("Possible Attack Message Count");
 }
