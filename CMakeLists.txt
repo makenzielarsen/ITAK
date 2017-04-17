@@ -11,5 +11,5 @@ set(SOURCE_FILES ITAK.h Message.h
         PortScanner.h PortScanner.cpp)
 add_executable(ITAK main.cpp ${SOURCE_FILES})
 
-set(TEST_FILES Testing/ConfigurationTester.h Testing/ConfigurationTester.cpp)
+set(TEST_FILES Testing/ConfigurationTester.h Testing/ConfigurationTester.cpp Testing/Test.h)
 add_executable(Test Testing/testingMain.cpp ${SOURCE_FILES} ${TEST_FILES})

@@ -12,11 +12,16 @@ using namespace std;
 
 class Configuration {
 private:
-    unordered_map<string, string> map;
+    unordered_map<string, string> configurationParameters;
+
 public:
-    string getStringValue(string key);
-    int getIntValue(string key);
-    double getDoubleValue(string key);
+    string getStringValue(const string key);
+    int getIntValue(const string key);
+    double getDoubleValue(const string key);
+
+    void set(const string key, const string value);
+    void set(const string key, const int value);
+    void set(const string key, const double value);
 
 };
 

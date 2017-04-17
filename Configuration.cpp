@@ -4,17 +4,30 @@
 
 #include "Configuration.h"
 
-string Configuration::getStringValue(string key) {
-    string value = map.find(key);
-    return value;
+// GETTERS
+
+string Configuration::getStringValue(const string key) {
+    return configurationParameters[key];
 }
 
-int Configuration::getIntValue(string key) {
-    string value = getStringValue(key);
-    return stoi(value);
+int Configuration::getIntValue(const string key) {
+    return stoi(getStringValue(key));
 }
 
-double Configuration::getDoubleValue(string key) {
-    string value = getStringValue(key);
-    return stod(key);
+double Configuration::getDoubleValue(const string key) {
+    return stod(getStringValue(key));
+}
+
+// SETTERS
+
+void Configuration::set(const string key, const string value) {
+    configurationParameters[key] = value;
+}
+
+void Configuration::set(const string key, const int value) {
+    configurationParameters[key] = to_string(value);
+}
+
+void Configuration::set(const string key, const double value) {
+    configurationParameters[key] = to_string(value);
 }

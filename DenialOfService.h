@@ -17,6 +17,7 @@ class DenialOfServiceAnalyzer : Analyzer {
 private:
     unordered_map<string, unordered_map<long int, int>> addressToSummary;
     unordered_map<long int, int> timestampToCount;
+    Configuration configuration;
 public:
     ResultSet* run(ifstream &inputStream);
 };

@@ -7,12 +7,13 @@
 
 #include <iostream>
 #include "ResultSet.h"
+#include "Configuration.h"
 
 using namespace std;
 
 class Analyzer {
 private:
-
+    Configuration configuration;
 public:
     Analyzer();
     virtual ResultSet* run(ifstream &inputStream);

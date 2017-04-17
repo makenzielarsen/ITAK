@@ -3,17 +3,17 @@
 //
 #include "PortScanner.h"
 
-ResultSet* PortScannerAnalyzer::run(ifstream &inputStream) {
-    ResultSet* resultSet = nullptr;
-    long int timestamp;
-    string srcAddress;
-    string srcPort;
-    string desPort;
-    std::string line;
-    getline(inputStream, line);
-    if (line!="")
-    {
-        inputStream >> timestamp >> srcAddress >> srcPort >> desPort;
-    }
-    return resultSet;
-}
+//ResultSet* PortScannerAnalyzer::run(ifstream &inputStream) {
+//    ResultSet* resultSet = nullptr;
+//    long int timestamp;
+//    string srcAddress;
+//    string srcPort;
+//    string desPort;
+//    std::string line;
+//    getline(inputStream, line);
+//    if (line!="")
+//    {
+//        inputStream >> timestamp >> srcAddress >> srcPort >> desPort;
+//    }
+//    return resultSet;
+//}
