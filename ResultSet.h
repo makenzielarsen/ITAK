@@ -7,15 +7,16 @@
 
 #include <unordered_map>
 #include <vector>
+#include <string>
 
 using namespace std;
 
 class ResultSet {
 private:
-
-public:
     unordered_map<string, vector<string>> resultSet;
-    void print(ofstream &);
+public:
+    void print(ofstream &outputStream);
+    vector<string>& operator[] (const string key);
 };
 
 #endif //ITAK_RESULTSET_H
