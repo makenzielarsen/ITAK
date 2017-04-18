@@ -15,9 +15,10 @@ void DenialOfServiceTester::testConstructor() {
 
     DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
     ifstream testFile1;
-    testFile1.open("testConstructor");
+    testFile1.open("testConstructor.csv");
     if (testFile1.is_open()) {
         ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
+        resultSet->print(cout);
     } else {
         TEST("closed", "open");
     }
@@ -32,7 +33,7 @@ void DenialOfServiceTester::testRun() {
 
     DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
     ifstream testFile1;
-    testFile1.open("testConstructor");
+    testFile1.open("testConstructor.csv");
     if (testFile1.is_open()) {
         ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
         resultSet->print(cout);
