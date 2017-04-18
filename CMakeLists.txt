@@ -8,7 +8,8 @@ set(SOURCE_FILES ITAK.h Message.h
         Analyzer.h Analyzer.cpp
         ResultSet.h ResultSet.cpp
         DenialOfService.h DenialOfService.cpp
-        PortScanner.h PortScanner.cpp)
+        PortScanner.h PortScanner.cpp
+        Utils.h Utils.cpp)
 add_executable(ITAK main.cpp ${SOURCE_FILES})
 
 set(TEST_FILES

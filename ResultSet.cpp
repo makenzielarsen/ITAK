@@ -10,3 +10,7 @@ void ResultSet::print(ofstream &) {
 vector<string>& ResultSet::operator[](const string key) {
     return resultSet[key];
 }
+
+void ResultSet::set(const string key, const vector<string> values) {
+    resultSet[key] = values;
+}

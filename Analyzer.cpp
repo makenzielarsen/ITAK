@@ -3,8 +3,7 @@
 //
 #include "Analyzer.h"
 
-Analyzer::Analyzer() {
-
+Analyzer::Analyzer(Configuration configuration) : configuration(configuration) {
 }
 
 ResultSet* Analyzer::run(ifstream &inputStream) {

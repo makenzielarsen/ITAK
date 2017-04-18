@@ -17,6 +17,7 @@ private:
 public:
     void print(ofstream &outputStream);
     vector<string>& operator[] (const string key);
+    void set(const string key, const vector<string> values);
 };
 
 #endif //ITAK_RESULTSET_H

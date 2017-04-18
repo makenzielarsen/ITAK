@@ -7,18 +7,26 @@
 
 #include <iostream>
 #include <istream>
+#include <fstream>
 #include <iomanip>
 #include <string>
 #include <unordered_map>
+#include <map>
 #include "Analyzer.h"
 #include "ResultSet.h"
 
+typedef string IPAddress;
+typedef long int Timestamp;
+typedef int Count;
+typedef map<Timestamp, Count> Summary;
+
 class DenialOfServiceAnalyzer : Analyzer {
 private:
-    unordered_map<string, unordered_map<long int, int>> addressToSummary;
-    unordered_map<long int, int> timestampToCount;
-    Configuration configuration;
+    unordered_map<IPAddress, Summary> addressToSummary;
+    void processData(ifstream &ifstream);
+    ResultSet *analyzeData();
 public:
+    DenialOfServiceAnalyzer(const Configuration &configuration);
     ResultSet* run(ifstream &inputStream);
 };
 

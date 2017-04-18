@@ -12,10 +12,10 @@
 using namespace std;
 
 class Analyzer {
-private:
+protected:
     Configuration configuration;
 public:
-    Analyzer();
+    Analyzer(Configuration configuration);
     virtual ResultSet* run(ifstream &inputStream);
 };
 
