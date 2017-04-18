@@ -15,5 +15,7 @@ add_executable(ITAK main.cpp ${SOURCE_FILES})
 set(TEST_FILES
         Testing/Test.h
         Testing/ConfigurationTester.h Testing/ConfigurationTester.cpp
-        Testing/ResultSetTester.h Testing/ResultSetTester.cpp)
+        Testing/ResultSetTester.h Testing/ResultSetTester.cpp
+        Testing/DenialOfServiceTester.h Testing/DenialOfServiceTester.cpp
+        )
 add_executable(Test Testing/testingMain.cpp ${SOURCE_FILES} ${TEST_FILES})

@@ -3,7 +3,7 @@
 //
 #include "ResultSet.h"
 
-void ResultSet::print(ofstream &) {
+void ResultSet::print(ostream &output) {
 
 }
 

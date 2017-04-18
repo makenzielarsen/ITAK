@@ -15,7 +15,7 @@ class ResultSet {
 private:
     unordered_map<string, vector<string>> resultSet;
 public:
-    void print(ofstream &outputStream);
+    void print(ostream &outputStream);
     vector<string>& operator[] (const string key);
     void set(const string key, const vector<string> values);
 };

@@ -4,6 +4,7 @@
 
 #include "ConfigurationTester.h"
 #include "ResultSetTester.h"
+#include "DenialOfServiceTester.h"
 
 int main(){
     ConfigurationTester configurationTester;
@@ -14,4 +15,7 @@ int main(){
     ResultSetTester resultSetTester;
     resultSetTester.testGetResults();
 
+    DenialOfServiceTester denialOfServiceTester;
+    denialOfServiceTester.testConstructor();
+    denialOfServiceTester.testRun();
 }
