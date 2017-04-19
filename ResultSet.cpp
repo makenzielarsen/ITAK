@@ -8,8 +8,9 @@
 void ResultSet::print(ostream &output) {
     for (auto& x : resultSet) {
         cout << x.first <<": ";
+        cout << endl;
         for (auto& y : x.second) {
-            cout << left << setw(32) << y << endl;
+            cout << '\t' << '\t' << y << endl;
         }
     }
 }

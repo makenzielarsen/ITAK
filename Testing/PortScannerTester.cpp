@@ -11,8 +11,8 @@
 
 void PortScannerTester::testConstructor() {
     Configuration configuration;
-    configuration.set("Likely Port Attack Count", 40);
-    configuration.set("Possible Port Attack Count", 30);
+    configuration.set("Likely Attack Port Count", 40);
+    configuration.set("Possible Attack Port Count", 30);
 
     PortScannerAnalyzer denialOfServiceAnalyzer(configuration);
     ifstream testFile1;
@@ -27,8 +27,8 @@ void PortScannerTester::testConstructor() {
 
 void PortScannerTester::testConfigurationValid() {
     Configuration configuration;
-    configuration.set("Likely Port Attack Count", 40);
-    configuration.set("Possible Port Attack Count", 30);
+    configuration.set("Likely Attack Port Count", 40);
+    configuration.set("Possible Attack Port Count", 30);
 
     PortScannerAnalyzer portScannerAnalyzer(configuration);
     if (portScannerAnalyzer.checkConfigurationValid()) {
@@ -38,7 +38,7 @@ void PortScannerTester::testConfigurationValid() {
     }
 
     Configuration configuration1;
-    configuration.set("Likely Port Attack Count", 40);
+    configuration.set("Likely Attack Port Count", 40);
 
     PortScannerAnalyzer portScannerAnalyzer1(configuration1);
     if (!portScannerAnalyzer1.checkConfigurationValid()) {
@@ -50,8 +50,8 @@ void PortScannerTester::testConfigurationValid() {
 
 void PortScannerTester::testRun() {
     Configuration configuration;
-    configuration.set("Likely Attack Message Count", 40);
-    configuration.set("Possible Attacker Message Count", 30);
+    configuration.set("Likely Attack Port Count", 40);
+    configuration.set("Possible Attack Port Count", 30);
     configuration.set("Timeframe", 123);
 
     PortScannerAnalyzer portScannerAnalyzer(configuration);

@@ -7,12 +7,9 @@
 PortScannerAnalyzer::PortScannerAnalyzer(const Configuration &configuration) : Analyzer(configuration) {}
 
 bool PortScannerAnalyzer::checkConfigurationValid() {
-    if (configuration.getStringValue("“Likely Attack Port Count") != "" &&
-        configuration.getStringValue("Possible Attack Port Count") != "") {
-        return true;
-    } else {
-        return false;
-    }
+    string likelyAttack = configuration.getStringValue("Likely Attack Port Count");
+    string possibleAttack = configuration.getStringValue("Possible Attack Port Count");
+    return !(likelyAttack == " " || possibleAttack == " ");
 }
 
 ResultSet* PortScannerAnalyzer::run(ifstream &inputStream) {

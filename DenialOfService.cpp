@@ -12,13 +12,10 @@ DenialOfServiceAnalyzer::DenialOfServiceAnalyzer(const Configuration &configurat
 
 
 bool DenialOfServiceAnalyzer::checkConfigurationValid() {
-    if (configuration.getStringValue("Timeframe") != "" &&
-        configuration.getStringValue("Likely Attack Message Count") != "" &&
-        configuration.getStringValue("Possible Attack Message Count") != "") {
-        return true;
-    } else {
-        return false;
-    }
+    string timeframe = configuration.getStringValue("Timeframe");
+    string likelyAttack = configuration.getStringValue("Likely Attack Message Count");
+    string possibleAttack = configuration.getStringValue("Possible Attack Message Count");
+    return !(timeframe == " " || likelyAttack == " " || possibleAttack == " ");
 }
 
 ResultSet* DenialOfServiceAnalyzer::run(ifstream &inputStream) {

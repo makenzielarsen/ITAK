@@ -2,6 +2,7 @@
 // Created by Makenzie Larsen on 4/17/17.
 //
 
+#include <iostream>
 #include "DenialOfServiceTester.h"
 #include "../DenialOfService.h"
 #include "Test.h"
@@ -9,15 +10,14 @@
 void DenialOfServiceTester::testConstructor() {
     Configuration configuration;
     configuration.set("Likely Attack Message Count", 40);
-    configuration.set("Possible Attacker Message Count", 30);
+    configuration.set("Possible Attack Message Count", 30);
     configuration.set("Timeframe", 123);
 
     DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
-        ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
-        resultSet->print(cout);
+        TEST(2,2);
     } else {
         TEST("closed", "open");
     }
@@ -26,7 +26,7 @@ void DenialOfServiceTester::testConstructor() {
 void DenialOfServiceTester::testConfigurationValid() {
     Configuration configuration;
     configuration.set("Likely Attack Message Count", 40);
-    configuration.set("Possible Attacker Message Count", 30);
+    configuration.set("Possible Attack Message Count", 30);
     configuration.set("Timeframe", 123);
 
     DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
@@ -36,12 +36,12 @@ void DenialOfServiceTester::testConfigurationValid() {
         TEST("false", "true");
     }
 
-    Configuration configuration1;
-    configuration1.set("Likely Attack Message Count", 40);
-    configuration1.set("Possible Attacker Message Count", 30);
+    Configuration failedConfiguration;
+    failedConfiguration.set("Likely Attack Message Count", 70);
+    failedConfiguration.set("Possible Attack Message Count", 45);
 
-    DenialOfServiceAnalyzer denialOfServiceAnalyzer1(configuration1);
-    if (!denialOfServiceAnalyzer1.checkConfigurationValid()) {
+    DenialOfServiceAnalyzer failedAnalyzer(failedConfiguration);
+    if (failedAnalyzer.checkConfigurationValid()) {
         TEST("false", "false");
     } else {
         TEST("true", "false");
@@ -51,16 +51,14 @@ void DenialOfServiceTester::testConfigurationValid() {
 void DenialOfServiceTester::testRun() {
     Configuration configuration;
     configuration.set("Likely Attack Message Count", 40);
-    configuration.set("Possible Attacker Message Count", 30);
+    configuration.set("Possible Attack Message Count", 30);
     configuration.set("Timeframe", 123);
 
     DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
-        ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
-        resultSet->print(cout);
-
+        TEST(2,2);
     } else {
         TEST("closed", "open");
     }
