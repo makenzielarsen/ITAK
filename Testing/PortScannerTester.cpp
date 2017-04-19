@@ -54,11 +54,11 @@ void PortScannerTester::testRun() {
     configuration.set("Possible Attacker Message Count", 30);
     configuration.set("Timeframe", 123);
 
-    DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
+    PortScannerAnalyzer portScannerAnalyzer(configuration);
     ifstream testFile1;
     testFile1.open("testConstructor.csv");
     if (testFile1.is_open()) {
-        ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
+        ResultSet* resultSet = portScannerAnalyzer.run(testFile1);
         resultSet->print(cout);
 
     } else {
