@@ -17,6 +17,7 @@ int main(){
     resultSetTester.testGetResults();
 
     DenialOfServiceTester denialOfServiceTester;
+    denialOfServiceTester.testConfigurationValid();
     denialOfServiceTester.testConstructor();
     denialOfServiceTester.testRun();
 

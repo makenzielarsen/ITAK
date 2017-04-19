@@ -8,10 +8,9 @@
 
 void DenialOfServiceTester::testConstructor() {
     Configuration configuration;
-    configuration.set("Likely attacks", 0);
-    configuration.set("Possible attackers", 0);
-    configuration.set("Attack Periods", 0);
-    configuration.set("Timeframe", 0);
+    configuration.set("Likely Attack Message Count", 40);
+    configuration.set("Possible Attacker Message Count", 30);
+    configuration.set("Timeframe", 123);
 
     DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
     ifstream testFile1;
@@ -25,15 +24,35 @@ void DenialOfServiceTester::testConstructor() {
 }
 
 void DenialOfServiceTester::testConfigurationValid() {
+    Configuration configuration;
+    configuration.set("Likely Attack Message Count", 40);
+    configuration.set("Possible Attacker Message Count", 30);
+    configuration.set("Timeframe", 123);
 
+    DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
+    if (denialOfServiceAnalyzer.checkConfigurationValid()) {
+        TEST("true", "true");
+    } else {
+        TEST("false", "true");
+    }
+
+    Configuration configuration1;
+    configuration1.set("Likely Attack Message Count", 40);
+    configuration1.set("Possible Attacker Message Count", 30);
+
+    DenialOfServiceAnalyzer denialOfServiceAnalyzer1(configuration1);
+    if (!denialOfServiceAnalyzer1.checkConfigurationValid()) {
+        TEST("false", "false");
+    } else {
+        TEST("true", "false");
+    }
 }
 
 void DenialOfServiceTester::testRun() {
     Configuration configuration;
-    configuration.set("Likely attacks", 0);
-    configuration.set("Possible attackers", 0);
-    configuration.set("Attack Periods", 0);
-    configuration.set("Timeframe", 0);
+    configuration.set("Likely Attack Message Count", 40);
+    configuration.set("Possible Attacker Message Count", 30);
+    configuration.set("Timeframe", 123);
 
     DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
     ifstream testFile1;
