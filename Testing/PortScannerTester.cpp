@@ -16,7 +16,7 @@ void PortScannerTester::testConstructor() {
 
     PortScannerAnalyzer denialOfServiceAnalyzer(configuration);
     ifstream testFile1;
-    testFile1.open("testConstructor.csv");
+    testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
         ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
         resultSet->print(cout);
@@ -56,7 +56,7 @@ void PortScannerTester::testRun() {
 
     PortScannerAnalyzer portScannerAnalyzer(configuration);
     ifstream testFile1;
-    testFile1.open("testConstructor.csv");
+    testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
         ResultSet* resultSet = portScannerAnalyzer.run(testFile1);
         resultSet->print(cout);
