@@ -2,6 +2,8 @@
 // Created by Makenzie Larsen on 4/19/17.
 //
 
+#include <iostream>
+#include <fstream>
 #include "PortScannerTester.h"
 #include "Test.h"
 #include "../Configuration.h"
@@ -11,6 +13,16 @@ void PortScannerTester::testConstructor() {
     Configuration configuration;
     configuration.set("Likely Port Attack Count", 40);
     configuration.set("Possible Port Attack Count", 30);
+
+    PortScannerAnalyzer denialOfServiceAnalyzer(configuration);
+    ifstream testFile1;
+    testFile1.open("testConstructor.csv");
+    if (testFile1.is_open()) {
+        ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
+        resultSet->print(cout);
+    } else {
+        TEST("closed", "open");
+    }
 }
 
 void PortScannerTester::testConfigurationValid() {
@@ -37,5 +49,19 @@ void PortScannerTester::testConfigurationValid() {
 }
 
 void PortScannerTester::testRun() {
+    Configuration configuration;
+    configuration.set("Likely Attack Message Count", 40);
+    configuration.set("Possible Attacker Message Count", 30);
+    configuration.set("Timeframe", 123);
 
+    DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
+    ifstream testFile1;
+    testFile1.open("testConstructor.csv");
+    if (testFile1.is_open()) {
+        ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
+        resultSet->print(cout);
+
+    } else {
+        TEST("closed", "open");
+    }
 }
