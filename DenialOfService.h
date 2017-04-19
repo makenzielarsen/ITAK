@@ -27,6 +27,7 @@ private:
     ResultSet *analyzeData();
 public:
     DenialOfServiceAnalyzer(const Configuration &configuration);
+    bool checkConfigurationValid();
     ResultSet* run(ifstream &inputStream);
 };
 

@@ -1,10 +1,17 @@
 //
 // Created by Makenzie Larsen on 4/17/17.
 //
+#include <iostream>
+#include <iomanip>
 #include "ResultSet.h"
 
 void ResultSet::print(ostream &output) {
-
+    for (auto& x : resultSet) {
+        cout << x.first <<": ";
+        for (auto& y : x.second) {
+            cout << left << setw(32) << y << endl;
+        }
+    }
 }
 
 vector<string>& ResultSet::operator[](const string key) {

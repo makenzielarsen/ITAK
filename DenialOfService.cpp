@@ -11,10 +11,22 @@ using namespace std;
 DenialOfServiceAnalyzer::DenialOfServiceAnalyzer(const Configuration &configuration) : Analyzer(configuration) {}
 
 
-ResultSet* DenialOfServiceAnalyzer::run(ifstream &inputStream) {
-    processData(inputStream);
-    return analyzeData();
+bool DenialOfServiceAnalyzer::checkConfigurationValid() {
+    if (configuration.getStringValue("Timeframe") != "" &&
+        configuration.getStringValue("Likely Attack Message Count") != "" &&
+        configuration.getStringValue("Possible Attack Message Count") != "") {
+        return true;
+    } else {
+        return false;
+    }
+}
 
+ResultSet* DenialOfServiceAnalyzer::run(ifstream &inputStream) {
+    if (checkConfigurationValid()) {
+        processData(inputStream);
+        return analyzeData();
+    }
+    return nullptr;
 }
 
 void DenialOfServiceAnalyzer::processData(ifstream &ifstream) {

@@ -2,18 +2,71 @@
 // Created by Makenzie Larsen on 4/14/17.
 //
 #include "PortScanner.h"
+#include "Utils.h"
 
-//ResultSet* PortScannerAnalyzer::run(ifstream &inputStream) {
-//    ResultSet* resultSet = nullptr;
-//    long int timestamp;
-//    string srcAddress;
-//    string srcPort;
-//    string desPort;
-//    std::string line;
-//    getline(inputStream, line);
-//    if (line!="")
-//    {
-//        inputStream >> timestamp >> srcAddress >> srcPort >> desPort;
-//    }
-//    return resultSet;
-//}
+PortScannerAnalyzer::PortScannerAnalyzer(const Configuration &configuration) : Analyzer(configuration) {}
+
+bool PortScannerAnalyzer::checkConfigurationValid() {
+    if (configuration.getStringValue("“Likely Attack Port Count") != "" &&
+        configuration.getStringValue("Possible Attack Port Count") != "") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+ResultSet* PortScannerAnalyzer::run(ifstream &inputStream) {
+    if (checkConfigurationValid()) {
+        processData(inputStream);
+        return analyze();
+    }
+    return nullptr;
+}
+
+void PortScannerAnalyzer::processData(ifstream &ifstream) {
+    string line;
+    while (getline(ifstream, line)) {
+        string array[4];
+        if(split(line, ',', array, 4)) {
+            IPAddress srcAddress = array[1];
+            Port desPort = stoi(array[3]);
+
+            try {
+                Port port = addressToPorts[srcAddress][desPort];
+
+            } catch (out_of_range) {
+                addressToPorts[srcAddress][desPort];
+            }
+        }
+    }
+}
+
+ResultSet* PortScannerAnalyzer::analyze() {
+    vector<string> attackers;
+    vector<string> possibleAttackers;
+    vector<string> portCount;
+    vector<string> possiblePortCount;
+
+    ResultSet* resultSet = new ResultSet;
+
+    int likelyThreshold = configuration.getIntValue("Likely Attack Message Count");
+    int possibleThreshold = configuration.getIntValue("Possible Attack Message Count");
+
+    for (auto& x: addressToPorts) {
+        string srcAddress = x.first;
+        vector<int> ports = x.second;
+        if (ports.size() >= likelyThreshold) {
+            attackers.push_back(srcAddress);
+            portCount.push_back(to_string(ports.size()));
+        } else if (ports.size() >= possibleThreshold) {
+            possibleAttackers.push_back(srcAddress);
+            possiblePortCount.push_back(to_string(ports.size()));
+        }
+    }
+
+    resultSet->set("Likely attackers", attackers);
+    resultSet->set("Possible Attackers", possibleAttackers);
+    resultSet->set("Attacked Port Count", portCount);
+    resultSet->set("Possible Attacked Port Count", possiblePortCount);
+    return resultSet;
+}

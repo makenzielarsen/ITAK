@@ -16,6 +16,7 @@ protected:
     Configuration configuration;
 public:
     Analyzer(Configuration configuration);
+    virtual bool checkConfigurationValid();
     virtual ResultSet* run(ifstream &inputStream);
 };
 

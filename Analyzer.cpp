@@ -6,6 +6,10 @@
 Analyzer::Analyzer(Configuration configuration) : configuration(configuration) {
 }
 
-ResultSet* Analyzer::run(ifstream &inputStream) {
+bool Analyzer::checkConfigurationValid() {
+    return false;
+}
 
+ResultSet* Analyzer::run(ifstream &inputStream) {
+    return nullptr;
 }
