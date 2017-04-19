@@ -8,6 +8,7 @@
 class DenialOfServiceTester {
 public:
     void testConstructor();
+    void testConfigurationValid();
     void testRun();
 };
 

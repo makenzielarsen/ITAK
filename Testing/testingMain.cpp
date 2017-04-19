@@ -5,6 +5,7 @@
 #include "ConfigurationTester.h"
 #include "ResultSetTester.h"
 #include "DenialOfServiceTester.h"
+#include "PortScannerTester.h"
 
 int main(){
     ConfigurationTester configurationTester;
@@ -18,4 +19,9 @@ int main(){
     DenialOfServiceTester denialOfServiceTester;
     denialOfServiceTester.testConstructor();
     denialOfServiceTester.testRun();
+
+    PortScannerTester portScannerTester;
+    portScannerTester.testConfigurationValid();
+    portScannerTester.testConstructor();
+    portScannerTester.testRun();
 }

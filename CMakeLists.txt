@@ -17,5 +17,5 @@ set(TEST_FILES
         Testing/ConfigurationTester.h Testing/ConfigurationTester.cpp
         Testing/ResultSetTester.h Testing/ResultSetTester.cpp
         Testing/DenialOfServiceTester.h Testing/DenialOfServiceTester.cpp
-        )
+        Testing/PortScannerTester.cpp Testing/PortScannerTester.h)
 add_executable(Test Testing/testingMain.cpp ${SOURCE_FILES} ${TEST_FILES})

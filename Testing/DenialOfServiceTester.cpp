@@ -24,6 +24,10 @@ void DenialOfServiceTester::testConstructor() {
     }
 }
 
+void DenialOfServiceTester::testConfigurationValid() {
+
+}
+
 void DenialOfServiceTester::testRun() {
     Configuration configuration;
     configuration.set("Likely attacks", 0);
