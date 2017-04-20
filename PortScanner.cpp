@@ -29,26 +29,9 @@ void PortScannerAnalyzer::processData(ifstream &ifstream) {
             int desPort = stoi(array[3]);
 
             try {
-                Ports ports = addressToPorts[srcAddress];
-                if (addressToPorts.size() == 0) {
-                    throw out_of_range("not created yet");
-                }
-                bool unique = false;
-                while (!unique) {
-                    for (auto& x : addressToPorts) {
-                        if (x.second == desPort) {
-                            unique = false;
-                            continue;
-                        } else {
-                            unique = true;
-                        }
-                    }
-                }
-                if (unique) {
-                    throw out_of_range("Port not found");
-                }
+                addressToPorts[srcAddress].insert(desPort);
             } catch (out_of_range) {
-                addressToPorts[srcAddress].push_back(desPort);
+                addressToPorts[srcAddress] = { desPort };
             }
         }
     }
@@ -62,12 +45,12 @@ ResultSet* PortScannerAnalyzer::analyze() {
 
     ResultSet* resultSet = new ResultSet;
 
-    int likelyThreshold = configuration.getIntValue("Likely Attack Message Count");
-    int possibleThreshold = configuration.getIntValue("Possible Attack Message Count");
+    int likelyThreshold = configuration.getIntValue("Likely Attack Port Count");
+    int possibleThreshold = configuration.getIntValue("Possible Attack Port Count");
 
     for (auto& x: addressToPorts) {
         string srcAddress = x.first;
-        vector<int> ports = x.second;
+        set<int> ports = x.second;
         if (ports.size() >= likelyThreshold) {
             attackers.push_back(srcAddress);
             portCount.push_back(to_string(ports.size()));

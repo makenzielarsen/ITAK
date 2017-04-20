@@ -11,6 +11,7 @@ string Configuration::getStringValue(const string key) {
 }
 
 int Configuration::getIntValue(const string key) {
+    auto val = getStringValue(key);
     return stoi(getStringValue(key));
 }
 

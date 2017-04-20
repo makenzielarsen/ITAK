@@ -18,8 +18,6 @@ void PortScannerTester::testConstructor() {
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
-        ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
-        resultSet->print(cout);
         TEST("open", "open");
     } else {
         TEST("closed", "open");
@@ -59,8 +57,6 @@ void PortScannerTester::testRun() {
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
-        ResultSet* resultSet = portScannerAnalyzer.run(testFile1);
-        resultSet->print(cout);
         TEST("open", "open");
     } else {
         TEST("closed", "open");

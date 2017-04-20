@@ -5,10 +5,11 @@
 #ifndef ITAK_PORTSCANNER_H
 #define ITAK_PORTSCANNER_H
 
+#include <set>
 #include "Analyzer.h"
 
 typedef string IPAddress;
-typedef vector<int> Ports;
+typedef set<int> Ports;
 
 class PortScannerAnalyzer : Analyzer {
 private:
