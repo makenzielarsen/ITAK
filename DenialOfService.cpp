@@ -85,6 +85,22 @@ ResultSet *DenialOfServiceAnalyzer::analyzeData() {
         }
     }
 
+    for (int i = 0; i < attackers.size(); i++) {
+        for (int j = i + 1; j < attackers.size(); j++) {
+            if (attackers[i] == attackers[j]) {
+                attackers.erase(attackers.begin() + j);
+            }
+        }
+    }
+
+    for (int i = 0; i < possibleAttackers.size(); i++) {
+        for (int j = i + 1; j < possibleAttackers.size(); j++) {
+            if (possibleAttackers[i] == possibleAttackers[j]) {
+                possibleAttackers.erase(possibleAttackers.begin() + j);
+            }
+        }
+    }
+
     resultSet->set("Likely attackers", attackers);
     resultSet->set("Possible Attackers", possibleAttackers);
     resultSet->set("Attack Periods", attackPeriods);
