@@ -18,6 +18,7 @@ public:
     void print(ostream &outputStream);
     vector<string>& operator[] (const string key);
     void set(const string key, const vector<string> values);
+    const unordered_map<string, vector<string>> getResultSet() { return resultSet; }
 };
 
 #endif //ITAK_RESULTSET_H
