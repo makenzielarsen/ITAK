@@ -19,7 +19,6 @@ void PortScannerTester::testConstructor() {
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
-        ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
         TEST("open", "open");
     } else {
         TEST("closed", "open");
@@ -53,7 +52,6 @@ void PortScannerTester::testRun() {
     Configuration configuration;
     configuration.set("Likely Attack Port Count", 40);
     configuration.set("Possible Attack Port Count", 30);
-    configuration.set("Timeframe", 123);
 
     PortScannerAnalyzer portScannerAnalyzer(configuration);
     ifstream testFile1;
@@ -75,4 +73,26 @@ void PortScannerTester::testRun() {
     } else {
         TEST("closed", "open");
     }
+
+    PortScannerAnalyzer Analyzer2(configuration);
+    ifstream testFile2;
+    testFile2.open("TenSources.csv");
+    if (testFile2.is_open()) {
+        ResultSet* resultSet = Analyzer2.run(testFile2);
+        unordered_map<string, vector<string>> set = resultSet->getResultSet();
+        if (set.at("Likely attackers").size() == 3) {
+            TEST("Three attackers", "Three attackers");
+        } else {
+            TEST("More or less than three attackers", "Three attackers");
+        }
+
+        if (set.at("Possible Attackers").size() == 4) {
+            TEST("Four possible attackers", "Four possible attackers");
+        } else {
+            TEST("More or less than four possible attackers", "Four possible attackers");
+        }
+    } else {
+        TEST("closed", "open");
+    }
+
 }
