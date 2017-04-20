@@ -20,6 +20,7 @@ void PortScannerTester::testConstructor() {
     if (testFile1.is_open()) {
         ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
         resultSet->print(cout);
+        TEST("open", "open");
     } else {
         TEST("closed", "open");
     }
@@ -60,7 +61,7 @@ void PortScannerTester::testRun() {
     if (testFile1.is_open()) {
         ResultSet* resultSet = portScannerAnalyzer.run(testFile1);
         resultSet->print(cout);
-
+        TEST("open", "open");
     } else {
         TEST("closed", "open");
     }

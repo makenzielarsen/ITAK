@@ -26,13 +26,29 @@ void PortScannerAnalyzer::processData(ifstream &ifstream) {
         string array[4];
         if(split(line, ',', array, 4)) {
             IPAddress srcAddress = array[1];
-            Port desPort = stoi(array[3]);
+            int desPort = stoi(array[3]);
 
             try {
-                Port port = addressToPorts[srcAddress][desPort];
-
+                Ports ports = addressToPorts[srcAddress];
+                if (addressToPorts.size() == 0) {
+                    throw out_of_range("not created yet");
+                }
+                bool unique = false;
+                while (!unique) {
+                    for (auto& x : addressToPorts) {
+                        if (x.second == desPort) {
+                            unique = false;
+                            continue;
+                        } else {
+                            unique = true;
+                        }
+                    }
+                }
+                if (unique) {
+                    throw out_of_range("Port not found");
+                }
             } catch (out_of_range) {
-                addressToPorts[srcAddress][desPort];
+                addressToPorts[srcAddress].push_back(desPort);
             }
         }
     }

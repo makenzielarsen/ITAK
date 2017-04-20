@@ -8,9 +8,7 @@
 #include "Analyzer.h"
 
 typedef string IPAddress;
-typedef int Port;
-typedef vector<Port> Ports;
-typedef unordered_map<IPAddress, Ports> Summary;
+typedef vector<int> Ports;
 
 class PortScannerAnalyzer : Analyzer {
 private:

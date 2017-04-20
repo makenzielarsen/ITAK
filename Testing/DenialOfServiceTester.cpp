@@ -17,7 +17,7 @@ void DenialOfServiceTester::testConstructor() {
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
-        TEST(2,2);
+        TEST("open", "open");
     } else {
         TEST("closed", "open");
     }
@@ -58,7 +58,7 @@ void DenialOfServiceTester::testRun() {
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
-        TEST(2,2);
+        TEST("open", "open");
     } else {
         TEST("closed", "open");
     }
