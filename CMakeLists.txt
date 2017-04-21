@@ -3,14 +3,14 @@ project(ITAK)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES ITAK.h Message.h
+set(SOURCE_FILES
         Configuration.h Configuration.cpp
         Analyzer.h Analyzer.cpp
         ResultSet.h ResultSet.cpp
         DenialOfService.h DenialOfService.cpp
         PortScanner.h PortScanner.cpp
         Utils.h Utils.cpp)
-add_executable(ITAK main.cpp ${SOURCE_FILES})
+add_executable(ITAK main.cpp ${SOURCE_FILES} UserInterface.cpp UserInterface.h)
 
 set(TEST_FILES
         Testing/Test.h
