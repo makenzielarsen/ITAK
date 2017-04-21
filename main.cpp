@@ -21,7 +21,7 @@ Configuration getDOSConfiguration() {
     cout << "Likely attack message count: ";
     string likely;
     cin >> likely;
-    cout << "Possible attack message count:";
+    cout << "Possible attack message count: ";
     string possible;
     cin >> possible;
     configuration.set("Timeframe", timeframe);
@@ -83,7 +83,10 @@ void runDenialOfService() {
                 continue;
             default:
                 cout << "Unknown character" << endl;
+                break;
         }
+        analyzerMenu();
+        cin >> choice;
     }
 }
 
@@ -124,7 +127,10 @@ void runPortScanner() {
                 continue;
             default:
                 cout << "Unknown character" << endl;
+                break;
         }
+        analyzerMenu();
+        cin >> choice;
     }
 }
 
