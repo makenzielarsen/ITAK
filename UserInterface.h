@@ -16,20 +16,14 @@ using namespace std;
 class UserInterface {
 private:
     void printAnalyzerMenu();
-
     void analyzerMenu();
-
     void runPortScanner();
-
     void runDenialOfService();
-
     Configuration getPSConfiguration();
-
     Configuration getDOSConfiguration();
-
     void runResults(PortScannerAnalyzer analyzer);
-
     void runResults(DenialOfServiceAnalyzer analyzer);
+
 public:
     void run();
 };

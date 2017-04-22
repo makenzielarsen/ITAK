@@ -60,16 +60,8 @@ void DenialOfServiceTester::testRun() {
     if (testFile1.is_open()) {
         ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile1);
         unordered_map<string, vector<string>> set = resultSet->getResultSet();
-        if (set.at("Likely attackers").size() == 1) {
-            TEST(1,1);
-        } else {
-            TEST("Not 1", "1");
-        }
-        if (set.at("Possible Attackers").size() == 1) {
-            TEST(1,1);
-        } else {
-            TEST("Not 1", "1");
-        }
+        TEST(set["Likely attackers"].size(), 1);
+        TEST(set["Possible Attackers"].size(), 1);
     } else {
         TEST("closed", "open");
     }
@@ -79,16 +71,8 @@ void DenialOfServiceTester::testRun() {
     if (testFile2.is_open()) {
         ResultSet* resultSet = denialOfServiceAnalyzer.run(testFile2);
         unordered_map<string, vector<string>> set = resultSet->getResultSet();
-        if (set.at("Likely attackers").size() == 3) {
-            TEST(3,3);
-        } else {
-            TEST("Not 3", "3");
-        }
-        if (set.at("Possible Attackers").size() == 4) {
-            TEST(4,4);
-        } else {
-            TEST("Not 4", "4");
-        }
+        TEST(set["Likely attackers"].size(), 4);
+        TEST(set["Possible Attackers"].size(), 3);
     } else {
         TEST("closed", "open");
     }

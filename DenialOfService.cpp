@@ -5,6 +5,7 @@
 #include "DenialOfService.h"
 #include "Utils.h"
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -46,9 +47,9 @@ void DenialOfServiceAnalyzer::processData(ifstream &ifstream) {
 }
 
 ResultSet *DenialOfServiceAnalyzer::analyzeData() {
-    vector<string> attackers;
-    vector<string> possibleAttackers;
-    vector<string> attackPeriods;
+    set<string> attackers;
+    set<string> possibleAttackers;
+    set<string> attackPeriods;
 
     ResultSet* resultSet = new ResultSet();
 
@@ -75,35 +76,23 @@ ResultSet *DenialOfServiceAnalyzer::analyzeData() {
             string timeWindow = to_string(startWindow) + "-" + to_string(endWindow);
 
             if (count >= likelyThreshold) {
-                attackers.push_back(srcAddress);
-                attackPeriods.push_back(timeWindow);
-            } else if (count >= possibleThreshold) {
-                possibleAttackers.push_back(srcAddress);
-                attackPeriods.push_back(timeWindow);
+                attackers.insert(srcAddress);
+                attackPeriods.insert(timeWindow);
+            } else if (count >= possibleThreshold && attackers.find(srcAddress) == attackers.end()) {
+                possibleAttackers.insert(srcAddress);
+                attackPeriods.insert(timeWindow);
             }
 
         }
     }
 
-    for (int i = 0; i < attackers.size(); i++) {
-        for (int j = i + 1; j < attackers.size(); j++) {
-            if (attackers[i] == attackers[j]) {
-                attackers.erase(attackers.begin() + j);
-            }
-        }
-    }
+    vector<string> attackersVector(attackers.begin(), attackers.end());
+    vector<string> possibleAttackersVector(possibleAttackers.begin(), possibleAttackers.end());
+    vector<string> attackPeriodsVector(attackPeriods.begin(), attackPeriods.end());
 
-    for (int i = 0; i < possibleAttackers.size(); i++) {
-        for (int j = i + 1; j < possibleAttackers.size(); j++) {
-            if (possibleAttackers[i] == possibleAttackers[j]) {
-                possibleAttackers.erase(possibleAttackers.begin() + j);
-            }
-        }
-    }
-
-    resultSet->set("Likely attackers", attackers);
-    resultSet->set("Possible Attackers", possibleAttackers);
-    resultSet->set("Attack Periods", attackPeriods);
+    resultSet->set("Likely attackers", attackersVector);
+    resultSet->set("Possible Attackers", possibleAttackersVector);
+    resultSet->set("Attack Periods", attackPeriodsVector);
     resultSet->set("Timeframe", { to_string(timeFrame) } );
 
     return resultSet;
