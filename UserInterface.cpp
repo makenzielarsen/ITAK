@@ -163,5 +163,6 @@ void UserInterface::run() {
                 cout << "Unknown character." << endl;
         }
         printAnalyzerMenu();
+        cin >> choice;
     }
 }
