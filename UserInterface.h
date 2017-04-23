@@ -20,7 +20,7 @@ private:
     void runDenialOfService();
     Configuration getPSConfiguration();
     Configuration getDOSConfiguration();
-    void UserInterface::runResults(Analyzer analyzer);
+    void runResults(Analyzer* analyzer);
 
 public:
     void run();

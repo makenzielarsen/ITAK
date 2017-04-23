@@ -14,11 +14,11 @@ typedef set<int> Ports;
 class PortScannerStrategy : public AnalyzerStrategy {
 private:
     unordered_map<IPAddress, Ports> addressToPorts;
-    void processData(ifstream &ifstream);
-    ResultSet* analyze();
 public:
     PortScannerStrategy(const Configuration &configuration);
     bool checkConfigurationValid();
+    void processData(ifstream &ifstream);
+    ResultSet* analyze();
 };
 
 #endif //ITAK_PORTSCANNER_H

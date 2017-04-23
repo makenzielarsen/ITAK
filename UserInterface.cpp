@@ -5,13 +5,30 @@
 #include "Configuration.h"
 #include "ResultSet.h"
 #include "Analyzer.h"
-//#include "DenialOfService.h"
-//#include "PortScanner.h"
+#include "DenialOfService.h"
+#include "PortScanner.h"
 #include "UserInterface.h"
 
 void UserInterface::printAnalyzerMenu() {
     cout << "A - Analyze file" << endl;
     cout << "X - Exit Analyzer" << endl;
+}
+
+void UserInterface::runResults(Analyzer* analyzer) {
+    cout << "Enter the file path you want analyzed: ";
+    string fileName;
+    cin >> fileName;
+    ifstream inputFile;
+    inputFile.open(fileName);
+    if (inputFile.is_open()) {
+        ResultSet* resultSet = analyzer->runAnalyzer(inputFile);
+        cout << "Data Analyzed." << endl;
+        inputFile.close();
+        resultSet->print(cout);
+    } else {
+        cout << "File not opened." << endl;
+        runResults(analyzer);
+    }
 }
 
 Configuration UserInterface::getDOSConfiguration() {
@@ -32,36 +49,18 @@ Configuration UserInterface::getDOSConfiguration() {
     return configuration;
 }
 
-void UserInterface::runResults(Analyzer analyzer) {
-    cout << "Enter the file path you want analyzed: ";
-    string fileName;
-    cin >> fileName;
-    ifstream inputFile;
-    inputFile.open(fileName);
-    if (inputFile.is_open()) {
-        ResultSet* resultSet = analyzer.run(inputFile);
-        cout << "Data Analyzed." << endl;
-        resultSet->print(cout);
-    } else {
-        cout << "File not opened." << endl;
-        runResults(analyzer);
-    }
-}
-
-void runResults(PortScannerStrategy analyzer) {
-    cout << "Enter the file path you want analyzed: ";
-    string fileName;
-    cin >> fileName;
-    ifstream inputFile;
-    inputFile.open(fileName);
-    if (inputFile.is_open()) {
-        ResultSet* resultSet = analyzer.run(inputFile);
-        cout << "Data Analyzed." << endl;
-        resultSet->print(cout);
-    } else {
-        cout << "File not opened." << endl;
-        runResults(analyzer);
-    }
+Configuration UserInterface::getPSConfiguration() {
+    Configuration configuration;
+    cout << "Enter the values you would like to apply for each of the following parameters" << endl;
+    cout << "Likely Attack Port Count: ";
+    string likely;
+    cin >> likely;
+    cout << "Possible Attack Port Count: ";
+    string possible;
+    cin >> possible;
+    configuration.set("Likely Attack Port Count", likely);
+    configuration.set("Possible Attack Port Count", possible);
+    return configuration;
 }
 
 void UserInterface::runDenialOfService() {
@@ -78,7 +77,7 @@ void UserInterface::runDenialOfService() {
         switch (choice) {
             case 'A':
                 if (strategy.checkConfigurationValid()) {
-                    runResults(analyzer);
+                    runResults(&analyzer);
                 } else {
                     cout << "Invalid Configuration" << endl;
                 }
@@ -98,24 +97,11 @@ void UserInterface::runDenialOfService() {
     }
 }
 
-Configuration UserInterface::getPSConfiguration() {
-    Configuration configuration;
-    cout << "Enter the values you would like to apply for each of the following parameters" << endl;
-    cout << "Likely Attack Port Count: ";
-    string likely;
-    cin >> likely;
-    cout << "Possible Attack Port Count: ";
-    string possible;
-    cin >> possible;
-    configuration.set("Likely Attack Port Count", likely);
-    configuration.set("Possible Attack Port Count", possible);
-    return configuration;
-}
-
 void UserInterface::runPortScanner() {
     Configuration configuration;
     configuration = getPSConfiguration();
-    PortScannerStrategy analyzer(configuration);
+    PortScannerStrategy strategy(configuration);
+    Analyzer analyzer(strategy);
 
     cout << "--- Welcome to the Port Scanner Analyzer ---" << endl;
     printAnalyzerMenu();
@@ -124,12 +110,11 @@ void UserInterface::runPortScanner() {
     while (choice != 'X') {
         switch (choice) {
             case 'A':
-                while (!analyzer.checkConfigurationValid()){
+                if (strategy.checkConfigurationValid()){
+                    runResults(&analyzer);
+                } else {
                     cout << "Invalid Configuration" << endl;
-                    configuration = getPSConfiguration();
-                    PortScannerStrategy analyzer(configuration);
                 }
-                runResults(analyzer);
                 break;
             case 'X':
                 continue;
@@ -137,8 +122,12 @@ void UserInterface::runPortScanner() {
                 cout << "Unknown character" << endl;
                 break;
         }
-        printAnalyzerMenu();
-        cin >> choice;
+        if (strategy.checkConfigurationValid()) {
+            printAnalyzerMenu();
+            cin >> choice;
+        } else {
+            choice = 'X';
+        }
     }
 }
 

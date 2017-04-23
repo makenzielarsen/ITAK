@@ -23,11 +23,11 @@ typedef map<Timestamp, Count> Summary;
 class DenialOfServiceStrategy : public AnalyzerStrategy {
 private:
     unordered_map<IPAddress, Summary> addressToSummary;
-    void processData(ifstream &ifstream);
-    ResultSet *analyzeData();
 public:
     DenialOfServiceStrategy(const Configuration &configuration);
     bool checkConfigurationValid();
+    void processData(ifstream &ifstream);
+    ResultSet *analyzeData();
 };
 
 #endif //ITAK_DENIALOFSERVICE_H
