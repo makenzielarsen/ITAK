@@ -14,7 +14,7 @@ void PortScannerTester::testConstructor() {
     configuration.set("Likely Attack Port Count", 40);
     configuration.set("Possible Attack Port Count", 30);
 
-    PortScannerAnalyzer denialOfServiceAnalyzer(configuration);
+    PortScannerStrategy denialOfServiceAnalyzer(configuration);
     denialOfServiceAnalyzer.checkConfigurationValid();
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
@@ -30,7 +30,7 @@ void PortScannerTester::testConfigurationValid() {
     configuration.set("Likely Attack Port Count", 40);
     configuration.set("Possible Attack Port Count", 30);
 
-    PortScannerAnalyzer portScannerAnalyzer(configuration);
+    PortScannerStrategy portScannerAnalyzer(configuration);
     if (portScannerAnalyzer.checkConfigurationValid()) {
         TEST("true", "true");
     } else {
@@ -40,7 +40,7 @@ void PortScannerTester::testConfigurationValid() {
     Configuration configuration1;
     configuration.set("Likely Attack Port Count", 40);
 
-    PortScannerAnalyzer portScannerAnalyzer1(configuration1);
+    PortScannerStrategy portScannerAnalyzer1(configuration1);
     if (!portScannerAnalyzer1.checkConfigurationValid()) {
         TEST("true", "false");
     } else {
@@ -53,7 +53,7 @@ void PortScannerTester::testRun() {
     configuration.set("Likely Attack Port Count", 40);
     configuration.set("Possible Attack Port Count", 30);
 
-    PortScannerAnalyzer portScannerAnalyzer(configuration);
+    PortScannerStrategy portScannerAnalyzer(configuration);
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
@@ -74,7 +74,7 @@ void PortScannerTester::testRun() {
         TEST("closed", "open");
     }
 
-    PortScannerAnalyzer Analyzer2(configuration);
+    PortScannerStrategy Analyzer2(configuration);
     ifstream testFile2;
     testFile2.open("TenSources.csv");
     if (testFile2.is_open()) {

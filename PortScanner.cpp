@@ -4,23 +4,15 @@
 #include "PortScanner.h"
 #include "Utils.h"
 
-PortScannerAnalyzer::PortScannerAnalyzer(const Configuration &configuration) : Analyzer(configuration) {}
+PortScannerStrategy::PortScannerStrategy(const Configuration &configuration) : AnalyzerStrategy(configuration) {}
 
-bool PortScannerAnalyzer::checkConfigurationValid() {
+bool PortScannerStrategy::checkConfigurationValid() {
     string likelyAttack = configuration.getStringValue("Likely Attack Port Count");
     string possibleAttack = configuration.getStringValue("Possible Attack Port Count");
     return !(likelyAttack == " " || possibleAttack == " ");
 }
 
-ResultSet* PortScannerAnalyzer::run(ifstream &inputStream) {
-    if (checkConfigurationValid()) {
-        processData(inputStream);
-        return analyze();
-    }
-    return nullptr;
-}
-
-void PortScannerAnalyzer::processData(ifstream &ifstream) {
+void PortScannerStrategy::processData(ifstream &ifstream) {
     string line;
     while (getline(ifstream, line)) {
         string array[4];
@@ -37,7 +29,7 @@ void PortScannerAnalyzer::processData(ifstream &ifstream) {
     }
 }
 
-ResultSet* PortScannerAnalyzer::analyze() {
+ResultSet* PortScannerStrategy::analyze() {
     vector<string> attackers;
     vector<string> possibleAttackers;
     vector<string> portCount;

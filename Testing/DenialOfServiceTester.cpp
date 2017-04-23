@@ -13,7 +13,7 @@ void DenialOfServiceTester::testConstructor() {
     configuration.set("Possible Attack Message Count", 30);
     configuration.set("Timeframe", 123);
 
-    DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
+    DenialOfServiceStrategy denialOfServiceAnalyzer(configuration);
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {
@@ -29,7 +29,7 @@ void DenialOfServiceTester::testConfigurationValid() {
     configuration.set("Possible Attack Message Count", 30);
     configuration.set("Timeframe", 123);
 
-    DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
+    DenialOfServiceStrategy denialOfServiceAnalyzer(configuration);
     if (denialOfServiceAnalyzer.checkConfigurationValid()) {
         TEST("true", "true");
     } else {
@@ -40,7 +40,7 @@ void DenialOfServiceTester::testConfigurationValid() {
     failedConfiguration.set("Likely Attack Message Count", 70);
     failedConfiguration.set("Possible Attack Message Count", 45);
 
-    DenialOfServiceAnalyzer failedAnalyzer(failedConfiguration);
+    DenialOfServiceStrategy failedAnalyzer(failedConfiguration);
     if (failedAnalyzer.checkConfigurationValid()) {
         TEST("false", "false");
     } else {
@@ -54,7 +54,7 @@ void DenialOfServiceTester::testRun() {
     configuration.set("Possible Attack Message Count", 30);
     configuration.set("Timeframe", 123);
 
-    DenialOfServiceAnalyzer denialOfServiceAnalyzer(configuration);
+    DenialOfServiceStrategy denialOfServiceAnalyzer(configuration);
     ifstream testFile1;
     testFile1.open("OneSourceOneTimestampTest.csv");
     if (testFile1.is_open()) {

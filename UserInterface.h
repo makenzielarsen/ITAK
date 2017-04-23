@@ -8,21 +8,19 @@
 #include <iostream>
 #include "Configuration.h"
 #include "ResultSet.h"
-#include "DenialOfService.h"
-#include "PortScanner.h"
+#include "Analyzer.h"
 
 using namespace std;
 
 class UserInterface {
 private:
+    void printUIMenu();
     void printAnalyzerMenu();
-    void analyzerMenu();
     void runPortScanner();
     void runDenialOfService();
     Configuration getPSConfiguration();
     Configuration getDOSConfiguration();
-    void runResults(PortScannerAnalyzer analyzer);
-    void runResults(DenialOfServiceAnalyzer analyzer);
+    void UserInterface::runResults(Analyzer analyzer);
 
 public:
     void run();

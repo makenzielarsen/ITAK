@@ -12,7 +12,7 @@
 #include <string>
 #include <unordered_map>
 #include <map>
-#include "Analyzer.h"
+#include "AnalyzerStrategy.h"
 #include "ResultSet.h"
 
 typedef string IPAddress;
@@ -20,15 +20,14 @@ typedef long int Timestamp;
 typedef int Count;
 typedef map<Timestamp, Count> Summary;
 
-class DenialOfServiceAnalyzer : Analyzer {
+class DenialOfServiceStrategy : public AnalyzerStrategy {
 private:
     unordered_map<IPAddress, Summary> addressToSummary;
     void processData(ifstream &ifstream);
     ResultSet *analyzeData();
 public:
-    DenialOfServiceAnalyzer(const Configuration &configuration);
+    DenialOfServiceStrategy(const Configuration &configuration);
     bool checkConfigurationValid();
-    ResultSet* run(ifstream &inputStream);
 };
 
 #endif //ITAK_DENIALOFSERVICE_H

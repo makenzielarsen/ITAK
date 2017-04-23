@@ -4,11 +4,12 @@
 #include <iostream>
 #include "Configuration.h"
 #include "ResultSet.h"
-#include "DenialOfService.h"
-#include "PortScanner.h"
+#include "Analyzer.h"
+//#include "DenialOfService.h"
+//#include "PortScanner.h"
 #include "UserInterface.h"
 
-void UserInterface::analyzerMenu() {
+void UserInterface::printAnalyzerMenu() {
     cout << "A - Analyze file" << endl;
     cout << "X - Exit Analyzer" << endl;
 }
@@ -31,7 +32,7 @@ Configuration UserInterface::getDOSConfiguration() {
     return configuration;
 }
 
-void UserInterface::runResults(DenialOfServiceAnalyzer analyzer) {
+void UserInterface::runResults(Analyzer analyzer) {
     cout << "Enter the file path you want analyzed: ";
     string fileName;
     cin >> fileName;
@@ -47,7 +48,7 @@ void UserInterface::runResults(DenialOfServiceAnalyzer analyzer) {
     }
 }
 
-void UserInterface::runResults(PortScannerAnalyzer analyzer) {
+void runResults(PortScannerStrategy analyzer) {
     cout << "Enter the file path you want analyzed: ";
     string fileName;
     cin >> fileName;
@@ -65,20 +66,22 @@ void UserInterface::runResults(PortScannerAnalyzer analyzer) {
 
 void UserInterface::runDenialOfService() {
     Configuration configuration = getDOSConfiguration();
-    DenialOfServiceAnalyzer analyzer(configuration);
+    DenialOfServiceStrategy strategy(configuration);
+    Analyzer analyzer(strategy);
 
     cout << "---Welcome to the Denial Of Service Analyzer---" << endl;
-    analyzerMenu();
+    printAnalyzerMenu();
 
     char choice;
     cin >> choice;
     while (choice != 'X'){
         switch (choice) {
             case 'A':
-                while (!analyzer.checkConfigurationValid()){
+                if (strategy.checkConfigurationValid()) {
+                    runResults(analyzer);
+                } else {
                     cout << "Invalid Configuration" << endl;
                 }
-                runResults(analyzer);
                 break;
             case 'X':
                 continue;
@@ -86,8 +89,12 @@ void UserInterface::runDenialOfService() {
                 cout << "Unknown character" << endl;
                 break;
         }
-        analyzerMenu();
-        cin >> choice;
+        if (strategy.checkConfigurationValid()) {
+            printAnalyzerMenu();
+            cin >> choice;
+        } else {
+            choice = 'X';
+        }
     }
 }
 
@@ -108,10 +115,10 @@ Configuration UserInterface::getPSConfiguration() {
 void UserInterface::runPortScanner() {
     Configuration configuration;
     configuration = getPSConfiguration();
-    PortScannerAnalyzer analyzer(configuration);
+    PortScannerStrategy analyzer(configuration);
 
     cout << "--- Welcome to the Port Scanner Analyzer ---" << endl;
-    analyzerMenu();
+    printAnalyzerMenu();
     char choice;
     cin >> choice;
     while (choice != 'X') {
@@ -120,7 +127,7 @@ void UserInterface::runPortScanner() {
                 while (!analyzer.checkConfigurationValid()){
                     cout << "Invalid Configuration" << endl;
                     configuration = getPSConfiguration();
-                    PortScannerAnalyzer analyzer(configuration);
+                    PortScannerStrategy analyzer(configuration);
                 }
                 runResults(analyzer);
                 break;
@@ -130,12 +137,12 @@ void UserInterface::runPortScanner() {
                 cout << "Unknown character" << endl;
                 break;
         }
-        analyzerMenu();
+        printAnalyzerMenu();
         cin >> choice;
     }
 }
 
-void UserInterface::printAnalyzerMenu() {
+void UserInterface::printUIMenu() {
     cout << "Currently supported Analyzers:" << endl;
     cout << "A - Denial of Service Analyzer" << endl;
     cout << "B - Port Scanner Analyzer" << endl;
@@ -146,7 +153,7 @@ void UserInterface::printAnalyzerMenu() {
 void UserInterface::run() {
     cout << "---Welcome to the ITAK system---" << endl;
     cout << endl;
-    printAnalyzerMenu();
+    printUIMenu();
     char choice;
     cin >> choice;
     while (choice != 'X') {
@@ -162,7 +169,7 @@ void UserInterface::run() {
             default:
                 cout << "Unknown character." << endl;
         }
-        printAnalyzerMenu();
+        printUIMenu();
         cin >> choice;
     }
 }

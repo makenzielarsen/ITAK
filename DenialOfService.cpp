@@ -9,25 +9,17 @@
 
 using namespace std;
 
-DenialOfServiceAnalyzer::DenialOfServiceAnalyzer(const Configuration &configuration) : Analyzer(configuration) {}
+DenialOfServiceStrategy::DenialOfServiceStrategy(const Configuration &configuration) : AnalyzerStrategy(configuration) {}
 
 
-bool DenialOfServiceAnalyzer::checkConfigurationValid() {
+bool DenialOfServiceStrategy::checkConfigurationValid() {
     string timeframe = configuration.getStringValue("Timeframe");
     string likelyAttack = configuration.getStringValue("Likely Attack Message Count");
     string possibleAttack = configuration.getStringValue("Possible Attack Message Count");
     return !(timeframe == " " || likelyAttack == " " || possibleAttack == " ");
 }
 
-ResultSet* DenialOfServiceAnalyzer::run(ifstream &inputStream) {
-    if (checkConfigurationValid()) {
-        processData(inputStream);
-        return analyzeData();
-    }
-    return nullptr;
-}
-
-void DenialOfServiceAnalyzer::processData(ifstream &ifstream) {
+void DenialOfServiceStrategy::processData(ifstream &ifstream) {
     string line;
     while (getline(ifstream, line)) {
         string array[4];
@@ -46,7 +38,7 @@ void DenialOfServiceAnalyzer::processData(ifstream &ifstream) {
     }
 }
 
-ResultSet *DenialOfServiceAnalyzer::analyzeData() {
+ResultSet *DenialOfServiceStrategy::analyzeData() {
     set<string> attackers;
     set<string> possibleAttackers;
     set<string> attackPeriods;
