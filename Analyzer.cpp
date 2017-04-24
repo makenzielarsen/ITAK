@@ -12,7 +12,7 @@ bool Analyzer::checkConfigurationValid() {
 }
 
 ResultSet* Analyzer::runAnalyzer(ifstream &inputStream) {
-    if (checkConfigurationValid()) {
+    if (analyzerStrategy.checkConfigurationValid()) {
         analyzerStrategy.processData(inputStream);
         return analyzerStrategy.analyzeData();
     }

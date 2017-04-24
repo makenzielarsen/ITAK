@@ -18,11 +18,3 @@ ResultSet* AnalyzerStrategy::analyzeData() {
     ResultSet* resultSet = nullptr;
     return resultSet;
 }
-
-ResultSet* AnalyzerStrategy::run(ifstream &inputStream) {
-    if (checkConfigurationValid()) {
-        processData(inputStream);
-        return analyzeData();
-    }
-    return nullptr;
-}

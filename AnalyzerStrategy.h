@@ -16,12 +16,11 @@ protected:
     Configuration configuration;
 public:
     AnalyzerStrategy(Configuration configuration);
-    
+
     virtual bool checkConfigurationValid();
     virtual void processData(ifstream &inputStream);
     virtual ResultSet* analyzeData();
-    
-    ResultSet* run(ifstream &inputStream);
+
 };
 
 #endif //ITAK_ANALYZERSTRATEGY_H
