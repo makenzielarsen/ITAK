@@ -9,9 +9,9 @@
 
 class Analyzer {
 private:
-    AnalyzerStrategy analyzerStrategy;
+    AnalyzerStrategy* analyzerStrategy;
 public:
-    Analyzer(AnalyzerStrategy analyzerStrategy);
+    Analyzer(AnalyzerStrategy* analyzerStrategy);
     bool checkConfigurationValid();
     ResultSet* runAnalyzer(ifstream &inputStream);
 };

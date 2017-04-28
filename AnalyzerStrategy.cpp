@@ -5,16 +5,3 @@
 
 AnalyzerStrategy::AnalyzerStrategy(Configuration configuration) : configuration(configuration) {
 }
-
-bool AnalyzerStrategy::checkConfigurationValid() {
-    return false;
-}
-
-void AnalyzerStrategy::processData(ifstream &inputStream) {
-    return;
-}
-
-ResultSet* AnalyzerStrategy::analyzeData() {
-    ResultSet* resultSet = nullptr;
-    return resultSet;
-}

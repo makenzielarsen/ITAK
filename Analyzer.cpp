@@ -4,17 +4,17 @@
 
 #include "Analyzer.h"
 
-Analyzer::Analyzer(AnalyzerStrategy analyzerStrategy) : analyzerStrategy(analyzerStrategy) {
+Analyzer::Analyzer(AnalyzerStrategy* analyzerStrategy) : analyzerStrategy(analyzerStrategy) {
 }
 
 bool Analyzer::checkConfigurationValid() {
-    return analyzerStrategy.checkConfigurationValid();
+    return analyzerStrategy->checkConfigurationValid();
 }
 
 ResultSet* Analyzer::runAnalyzer(ifstream &inputStream) {
-    if (analyzerStrategy.checkConfigurationValid()) {
-        analyzerStrategy.processData(inputStream);
-        return analyzerStrategy.analyzeData();
+    if (analyzerStrategy->checkConfigurationValid()) {
+        analyzerStrategy->processData(inputStream);
+        return analyzerStrategy->analyzeData();
     }
     return nullptr;
 }

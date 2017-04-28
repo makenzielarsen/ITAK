@@ -18,7 +18,7 @@ public:
     PortScannerStrategy(const Configuration &configuration);
     bool checkConfigurationValid();
     void processData(ifstream &ifstream);
-    ResultSet* analyze();
+    ResultSet* analyzeData();
 };
 
 #endif //ITAK_PORTSCANNER_H

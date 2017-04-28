@@ -29,7 +29,7 @@ void PortScannerStrategy::processData(ifstream &ifstream) {
     }
 }
 
-ResultSet* PortScannerStrategy::analyze() {
+ResultSet* PortScannerStrategy::analyzeData() {
     vector<string> attackers;
     vector<string> possibleAttackers;
     vector<string> portCount;

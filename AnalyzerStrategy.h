@@ -17,9 +17,9 @@ protected:
 public:
     AnalyzerStrategy(Configuration configuration);
 
-    virtual bool checkConfigurationValid();
-    virtual void processData(ifstream &inputStream);
-    virtual ResultSet* analyzeData();
+    virtual bool checkConfigurationValid() = 0;
+    virtual void processData(ifstream &inputStream) = 0;
+    virtual ResultSet* analyzeData() = 0;
 
 };
 

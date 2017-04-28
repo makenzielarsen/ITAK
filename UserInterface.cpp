@@ -65,7 +65,7 @@ Configuration UserInterface::getPSConfiguration() {
 
 void UserInterface::runDenialOfService() {
     Configuration configuration = getDOSConfiguration();
-    DenialOfServiceStrategy strategy(configuration);
+    DenialOfServiceStrategy* strategy = new DenialOfServiceStrategy(configuration);
     Analyzer analyzer(strategy);
 
     cout << "---Welcome to the Denial Of Service Analyzer---" << endl;
@@ -76,7 +76,7 @@ void UserInterface::runDenialOfService() {
     while (choice != 'X'){
         switch (choice) {
             case 'A':
-                if (strategy.checkConfigurationValid()) {
+                if (strategy->checkConfigurationValid()) {
                     runResults(&analyzer);
                 } else {
                     cout << "Invalid Configuration" << endl;
@@ -88,7 +88,7 @@ void UserInterface::runDenialOfService() {
                 cout << "Unknown character" << endl;
                 break;
         }
-        if (strategy.checkConfigurationValid()) {
+        if (strategy->checkConfigurationValid()) {
             printAnalyzerMenu();
             cin >> choice;
         } else {
@@ -100,7 +100,7 @@ void UserInterface::runDenialOfService() {
 void UserInterface::runPortScanner() {
     Configuration configuration;
     configuration = getPSConfiguration();
-    PortScannerStrategy strategy(configuration);
+    PortScannerStrategy* strategy = new PortScannerStrategy(configuration);
     Analyzer analyzer(strategy);
 
     cout << "--- Welcome to the Port Scanner Analyzer ---" << endl;
@@ -110,7 +110,7 @@ void UserInterface::runPortScanner() {
     while (choice != 'X') {
         switch (choice) {
             case 'A':
-                if (strategy.checkConfigurationValid()){
+                if (strategy->checkConfigurationValid()){
                     runResults(&analyzer);
                 } else {
                     cout << "Invalid Configuration" << endl;
@@ -122,7 +122,7 @@ void UserInterface::runPortScanner() {
                 cout << "Unknown character" << endl;
                 break;
         }
-        if (strategy.checkConfigurationValid()) {
+        if (strategy->checkConfigurationValid()) {
             printAnalyzerMenu();
             cin >> choice;
         } else {
